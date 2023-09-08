@@ -1,0 +1,33 @@
+version: '3'
+
+networks:
+  observabilidade:
+    driver: bridge
+
+services:
+
+  redis:
+    image: redis:alpine
+    container_name: redis_observabilidade
+    expose:
+      - 6379
+    networks:
+      - observabilidade
+
+  prometheus:
+    container_name: prometheus_observabilidade
+    image: ubuntu/prometheus
+    ports:
+      - "30090:9090"
+    volumes:
+      - ./.docker/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml
+    environment:
+      - TZ=UTC
+
+  grafana:
+    container_name: grafana_observabilidade
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    user: '104'
+

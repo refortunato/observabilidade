@@ -1,0 +1,17 @@
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: prometheus
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    scheme: http
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['localhost:9090']
+  - job_name: observabilidade_app
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    scheme: http
+    metrics_path: /metrics # Path onde terá as métricas
+    static_configs:
+      - targets: [ '192.168.0.79:9000' ] # URL do serviço onde irá buscar as métricas
