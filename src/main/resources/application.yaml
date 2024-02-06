@@ -1,0 +1,28 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: java-observability
+  datasource:
+    url: jdbc:mysql://localhost:3314/observabilidade?useSSL=true&serverTimezone=UTC&characterEncoding=UTF-8
+    username: mysql001
+    password: mysql001
+    # Gerenciador de pool default
+    hikari:
+      auto-commit: false # Para não gerenciar o commit automaticamente
+      connection-timeout: 250 # Configuração em milliseconds. Manter baixo para falhar rápido por conta da alta concorrência.
+      max-lifetime: 600000 # Tempo máximo que uma conexão fica aberta (10 min)
+      maximum-pool-size: 20 # Manter baixo, pois não teremos throughput sucufiente para gerênciar muitas conexões
+      minimum-idle: 10 # Manter pelo menos 10 conexões
+      pool-name: master # Nome do pool
+  jpa:
+    open-in-view: false # Abre uma transação desde o controller (false=desabilitado)
+    show-sql: true
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL8Dialect
+      ddl-auto: none # Dizer para o Hibernate se quer criar o schema no banco (create, create-drop, update, none)
+    properties:
+      #"[hibernate.dialect]": org.hibernate.dialect.MySQL5InnoDBDialect
+      "[hibernate.generate_statistics]": false
+      "[hibernate.connection.provider_disables_autocommit]": true # Informa para o Hibernate que sempre vamos começar uma conexão do pool com autocomit=false, para que não fique indo pegar essa informação do pool
