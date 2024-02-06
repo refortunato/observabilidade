@@ -6,6 +6,7 @@ networks:
 
 services:
 
+
   mysql:
     build: ./.docker/mysql
     command: --innodb-use-native-aio=0
