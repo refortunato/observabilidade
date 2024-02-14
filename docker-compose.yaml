@@ -48,5 +48,3 @@ services:
       - "3000:3000"
     user: '104'
 
-# Add comment for test
-# Add another comment
