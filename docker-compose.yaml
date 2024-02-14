@@ -6,23 +6,6 @@ networks:
 
 services:
 
-  mysql:
-    build: ./.docker/mysql
-    command: --innodb-use-native-aio=0
-    container_name: mysql_observabilidade
-    restart: 'no'
-    platform: linux/amd64 # For mac. Comment for linux
-    tty: true
-    ports:
-      - "3313:3306"
-    volumes:
-      - ./.docker/mysql/dbdata:/var/lib/mysql
-    environment:
-      - MYSQL_DATABASE=observabilidade
-      - MYSQL_ROOT_PASSWORD=root
-    networks:
-      - observabilidade
-
   redis:
     image: redis:alpine
     container_name: redis_observabilidade
